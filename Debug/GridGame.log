@@ -1,0 +1,4 @@
+﻿  Source.cpp
+M:\Projects\IntroToGamesProg\GridGame\Source.cpp(13,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+M:\Projects\IntroToGamesProg\GridGame\Source.cpp(133,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GridGame.vcxproj -> M:\Projects\IntroToGamesProg\GridGame\Debug\GridGame.exe
