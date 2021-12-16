@@ -14,66 +14,68 @@ void main()
 	CreateGrid();
 
 	int playerChoice = 0;
+	int playAgain = 1;
 	
+	do
+	{
+		do
+		{
+			cout << dye::green("\nGame board: \n");
+			DisplayGrid();
+			cout << "\n\n";
+			cout << "\nMenu:";
+			cout << "\n1. Move Player North";
+			cout << "\n2. Move Player South";
+			cout << "\n3. Move Player East";
+			cout << "\n4. Move Player West";
+			cout << "\n5.Exit game\n";
+			cout << "Current HP: " << p1.getPlayerHP() << "\n";
+			cin >> playerChoice;
+			std::system("CLS");
+			switch (playerChoice)
+			{
+			case 1:
+				PlayerMove(-1, 0);
+				break;
+			case 2:
+				PlayerMove(1, 0);
+				break;
+			case 3:
+				PlayerMove(0, 1);
+				break;
+			case 4:
+				PlayerMove(0, -1);
+				break;
+			case 5:
+				break;
+			case 9:
+				CreateGrid();
+				break;
+			default:
+				cout << "\nInput not recognized, please try again\n";
+			}
+			if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+			{
+				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+			}
+			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "2" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+			{
+				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+			}
+			if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+			{
+				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+			}
+			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+			{
+				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+			}
+			if (p1.getPlayerGoal() == true || p1.getPlayerHP() < 1)
+			{
+				playerChoice = 5;
+			}
 
-do
-{
-	cout << dye::green("\nGame board: \n");
-	DisplayGrid();
-	cout << "\n\n";
-	cout << "\nMenu:";
-	cout << "\n1. Move Player North";
-	cout << "\n2. Move Player South";
-	cout << "\n3. Move Player East";
-	cout << "\n4. Move Player West";
-	cout << "\n5.Exit game\n";
-	cout << "Current HP: " << p1.getPlayerHP() << "\n";
-	cin >> playerChoice;
-	std::system("CLS");
-	switch (playerChoice)
-	{
-	case 1:
-		PlayerMove(-1, 0);
-		break;
-	case 2:
-		PlayerMove(1, 0);
-		break;
-	case 3:
-		PlayerMove(0, 1);
-		break;
-	case 4:
-		PlayerMove(0, -1);
-		break;
-	case 5:
-		break;
-	case 9:
-		CreateGrid();
-		break;
-	default:
-		cout << "\nInput not recognized, please try again\n";
-	}
-	if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-	{
-		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-	}
-	if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "2" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-	{
-		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-	}
-	if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-	{
-		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-	}
-	if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-	{
-		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-	}
-	if (p1.getPlayerGoal() == true || p1.getPlayerHP() < 1)
-	{
-		playerChoice = 5;
-	}
-
-} while (playerChoice != 5);
+		} while (playerChoice != 5);
 		std::system("CLS");
 
 		if (p1.getPlayerGoal() == true)
@@ -85,6 +87,9 @@ do
 		{
 			cout << "\nUnfortunately, you have lost the game.\n";
 		}
+		cout << "\nDo you want to play again? (1 for yes, 0 for no)\n";
+		cin >> playAgain;
+	} while (playAgain != 0);
 	
 	std::system("pause");
 }
@@ -131,8 +136,13 @@ void CreateGrid()
 	}
 	int enemyRow, enemyCollumn;
 	srand(time(NULL));
-	p1.setPlayerRow(rand() % 20);
-	p1.setPlayerCollumn(rand() % 20);
+	do
+	{
+		p1.setPlayerRow(rand() % 20);
+		p1.setPlayerCollumn(rand() % 20);
+		cout << p1.getPlayerCollumn()<<"\n";
+		cout << p1.getPlayerRow()<<"\n";
+	} while (p1.getPlayerCollumn() < 20 && p1.getPlayerRow() < 20);
 	g1.setGoalRow(rand() % 20);
 	g1.setGoalCollumn(rand() % 20);
 	enemyRow = rand() % 20;

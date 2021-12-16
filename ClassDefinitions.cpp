@@ -54,10 +54,24 @@ int Goal::getGoalCollumn()
 
 void Goal::setGoalRow(int Row)
 {
-	goalRow = Row;
+	if (Row < 20&&Row >0)
+	{
+		goalRow = Row;
+	}
+	else
+	{
+		goalCollumn = 0;
+	}
 }
 
 void Goal::setGoalCollumn(int Collumn)
 {
-	goalCollumn = Collumn;
+	if (Collumn < 20&&Collumn>0)
+	{
+		goalCollumn = Collumn;
+	}
+	else
+	{
+		goalCollumn = 0;
+	}
 }
