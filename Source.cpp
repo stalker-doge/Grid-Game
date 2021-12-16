@@ -136,13 +136,8 @@ void CreateGrid()
 	}
 	int enemyRow, enemyCollumn;
 	srand(time(NULL));
-	do
-	{
-		p1.setPlayerRow(rand() % 20);
-		p1.setPlayerCollumn(rand() % 20);
-		cout << p1.getPlayerCollumn()<<"\n";
-		cout << p1.getPlayerRow()<<"\n";
-	} while (p1.getPlayerCollumn() < 20 && p1.getPlayerRow() < 20);
+	p1.initializePlayerRow(rand() % 20);
+	p1.initializePlayerCollumn(rand() % 20);
 	g1.setGoalRow(rand() % 20);
 	g1.setGoalCollumn(rand() % 20);
 	enemyRow = rand() % 20;

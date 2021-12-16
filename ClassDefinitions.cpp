@@ -32,6 +32,22 @@ void Player::setPlayerCollumn(int Collumn)
 	playerCollumn = playerCollumn+ Collumn;
 }
 
+void Player::initializePlayerRow(int Row)
+{
+	if (Row < 20)
+	{
+		playerRow = Row;
+	}
+}
+
+void Player::initializePlayerCollumn(int Collumn)
+{
+	if (Collumn < 20)
+	{
+		playerCollumn = Collumn;
+	}
+}
+
 void Player::setPlayerHP(int HP)
 {
 	playerHP = playerHP + HP;
@@ -54,24 +70,10 @@ int Goal::getGoalCollumn()
 
 void Goal::setGoalRow(int Row)
 {
-	if (Row < 20&&Row >0)
-	{
-		goalRow = Row;
-	}
-	else
-	{
-		goalCollumn = 0;
-	}
+	goalRow = Row;
 }
 
 void Goal::setGoalCollumn(int Collumn)
 {
-	if (Collumn < 20&&Collumn>0)
-	{
-		goalCollumn = Collumn;
-	}
-	else
-	{
-		goalCollumn = 0;
-	}
+	goalCollumn = Collumn;
 }
