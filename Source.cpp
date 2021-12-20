@@ -11,13 +11,13 @@ void CreateGrid();
 void DisplayGrid();
 void main()
 {
-
+	CreateGrid();
 
 	int playerChoice = 0;
 	int playAgain = 1;
+	
 	do
 	{
-		CreateGrid();
 		do
 		{
 			cout << dye::green("\nGame board: \n");
@@ -87,13 +87,10 @@ void main()
 		{
 			cout << "\nUnfortunately, you have lost the game.\n";
 		}
-		p1.setPlayerGoal(false);
-		p1.setPlayerHP(100);
-		p1.setPlayerRow(rand() % 20);
-		p1.setPlayerCollumn(rand() % 20);
-		cout << "\nDo you want to play again?(1 for Yes, 0 for No)\n";
+		cout << "\nDo you want to play again? (1 for yes, 0 for no)\n";
 		cin >> playAgain;
 	} while (playAgain != 0);
+	
 	std::system("pause");
 }
 
@@ -139,8 +136,8 @@ void CreateGrid()
 	}
 	int enemyRow, enemyCollumn;
 	srand(time(NULL));
-	p1.setPlayerRow(rand() % 20);
-	p1.setPlayerCollumn(rand() % 20);
+	p1.initializePlayerRow(rand() % 20);
+	p1.initializePlayerCollumn(rand() % 20);
 	g1.setGoalRow(rand() % 20);
 	g1.setGoalCollumn(rand() % 20);
 	enemyRow = rand() % 20;

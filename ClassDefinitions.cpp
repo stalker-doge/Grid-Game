@@ -32,6 +32,22 @@ void Player::setPlayerCollumn(int Collumn)
 	playerCollumn = playerCollumn+ Collumn;
 }
 
+void Player::initializePlayerRow(int Row)
+{
+	if (Row < 20)
+	{
+		playerRow = Row;
+	}
+}
+
+void Player::initializePlayerCollumn(int Collumn)
+{
+	if (Collumn < 20)
+	{
+		playerCollumn = Collumn;
+	}
+}
+
 void Player::setPlayerHP(int HP)
 {
 	playerHP = playerHP + HP;

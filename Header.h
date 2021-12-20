@@ -22,6 +22,8 @@ public:
 
 	void setPlayerRow(int Row);
 	void setPlayerCollumn(int Collumn);
+	void initializePlayerRow(int Row);
+	void initializePlayerCollumn(int Collumn);
 	void setPlayerHP(int HP);
 	void setPlayerGoal(bool Goal);
 
