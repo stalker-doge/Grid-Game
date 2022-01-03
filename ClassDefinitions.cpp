@@ -22,6 +22,11 @@ bool Player::getPlayerGoal()
 	return playerGoal;
 }
 
+int Player::getPlayerDifficulty()
+{
+	return playerDifficulty;
+}
+
 void Player::setPlayerRow(int Row)
 {
 	playerRow =playerRow+ Row;
@@ -56,6 +61,11 @@ void Player::setPlayerHP(int HP)
 void Player::setPlayerGoal(bool Goal)
 {
 	playerGoal = Goal;
+}
+
+void Player::setPlayerDifficulty(int Difficulty)
+{
+	playerDifficulty = Difficulty;
 }
 
 int Goal::getGoalRow()

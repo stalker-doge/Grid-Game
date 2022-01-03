@@ -12,12 +12,14 @@ class Player
 	int playerRow, playerCollumn;
 	bool playerGoal = false;
 	int playerHP = 100;
+	int playerDifficulty = 0;
 
 public:
 	int getPlayerRow();
 	int getPlayerCollumn();
 	int getPlayerHP();
 	bool getPlayerGoal();
+	int getPlayerDifficulty();
 
 
 	void setPlayerRow(int Row);
@@ -26,7 +28,7 @@ public:
 	void initializePlayerCollumn(int Collumn);
 	void setPlayerHP(int HP);
 	void setPlayerGoal(bool Goal);
-
+	void setPlayerDifficulty(int Difficulty);
 };
 class Goal
 {

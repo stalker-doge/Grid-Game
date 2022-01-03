@@ -1,7 +1,4 @@
-﻿  ClassDefinitions.cpp
-  Header.cpp
-  Source.cpp
-M:\Projects\IntroToGamesProg\GridGame\Source.cpp(9,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
-M:\Projects\IntroToGamesProg\GridGame\Source.cpp(16,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
-  GridGame.vcxproj -> M:\Projects\IntroToGamesProg\GridGame\x64\Debug\GridGame.exe
+﻿  Source.cpp
+E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(14,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(166,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GridGame.vcxproj -> E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\x64\Debug\GridGame.exe

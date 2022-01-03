@@ -6,6 +6,7 @@ using namespace std;
 Player p1;
 Goal g1;
 string gameBoard[NUMBER_OF_ROWS][NUMBER_OF_COLLUMNS];
+string hiddenBoard[NUMBER_OF_ROWS][NUMBER_OF_COLLUMNS];
 void PlayerMove(int x, int y);
 void CreateGrid();
 void DisplayGrid();
@@ -57,19 +58,41 @@ void main()
 			if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
 			{
 				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+				hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "2";
 			}
 			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "2" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
 			{
 				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+				hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "2";
 			}
 			if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
 			{
 				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+				hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "2";
 			}
 			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
 			{
 				cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+				hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "2";
 			}
+			//Above finds if player is near enemy
+			if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+			{
+				hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "G";
+			}
+			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "G" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+			{
+				hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "G";
+			}
+			if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+			{
+				hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "G";
+			}
+			if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+			{
+				hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "G";
+			}
+			//Finds if player is next to the goal
 			if (p1.getPlayerGoal() == true || p1.getPlayerHP() < 1)
 			{
 				playerChoice = 5;
@@ -89,6 +112,7 @@ void main()
 		}
 		cout << "\nDo you want to play again? (1 for yes, 0 for no)\n";
 		cin >> playAgain;
+		CreateGrid();
 	} while (playAgain != 0);
 	
 	std::system("pause");
@@ -106,6 +130,7 @@ void PlayerMove(int x, int y)
 		p1.setPlayerRow(x);
 		p1.setPlayerCollumn(y);
 		gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
+		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
 		p1.setPlayerHP(-5);
 	}
 	else if (gameBoard[p1.getPlayerRow() + x][p1.getPlayerCollumn() + y] == "G")
@@ -114,6 +139,7 @@ void PlayerMove(int x, int y)
 		p1.setPlayerRow(x);
 		p1.setPlayerCollumn(y);
 		gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
+		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
 		p1.setPlayerGoal(true);
 	}
 	else
@@ -122,6 +148,7 @@ void PlayerMove(int x, int y)
 		p1.setPlayerRow(x);
 		p1.setPlayerCollumn(y);
 		gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
+		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
 		p1.setPlayerHP(-1);
 	}
 }
@@ -132,6 +159,7 @@ void CreateGrid()
 		for (int col = 0; col < NUMBER_OF_COLLUMNS; col++)
 		{
 			gameBoard[row][col] = "0";
+			hiddenBoard[row][col] = "#";
 		}
 	}
 	int enemyRow, enemyCollumn;
@@ -143,6 +171,7 @@ void CreateGrid()
 	enemyRow = rand() % 20;
 	enemyCollumn = rand() % 20;
 	gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
+	hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn()] = "1";
 	for (int i = 0; i < NUMBER_OF_ENEMIES; i++)
 	{
 		if (gameBoard[enemyRow][enemyCollumn] == "1")
@@ -189,22 +218,25 @@ void DisplayGrid()
 		{
 			if (gameBoard[row][col] == "1")
 			{
-				cout << "\t" << dye::aqua(gameBoard[row][col]);
+				hiddenBoard[row][col] = "1";
+				cout << "\t" << dye::aqua(hiddenBoard[row][col]);
+				hiddenBoard[row][col] = ".";
 			}
-			else if (gameBoard[row][col] == "2")
+			else if(hiddenBoard[row][col]=="2")
 			{
-				cout << "\t" << dye::light_red(gameBoard[row][col]);
+				cout << "\t" << dye::light_red(hiddenBoard[row][col]);
 			}
-			else if (gameBoard[row][col] == "G")
+			else if(hiddenBoard[row][col]=="G")
 			{
-				cout << "\t" << dye::light_yellow(gameBoard[row][col]);
+				cout << "\t" << dye::yellow(hiddenBoard[row][col]);
 			}
 			else
 			{
-				gameBoard[row][col] = "0";
-				cout << "\t" << gameBoard[row][col];
+
+				cout << "\t" << hiddenBoard[row][col];
 			}
+
 		}
 		cout << "\n";
 	}
-}
+}//DIFFICULTY: VERY EASY CAN SEE BOARD, 150 HEALTH, 10 ENEMIES, EASY NO BOARD, 10 ENEMIES, MEDIUM NO BOARD, 20 ENEMIES, 100 HP, HARD NO BOARD, 30 ENEMIES, 50 HP
