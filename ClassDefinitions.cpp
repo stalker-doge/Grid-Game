@@ -27,6 +27,11 @@ int Player::getPlayerDifficulty()
 	return playerDifficulty;
 }
 
+int Player::getPlayerLives()
+{
+	return playerLives;
+}
+
 void Player::setPlayerRow(int Row)
 {
 	playerRow =playerRow+ Row;
@@ -54,6 +59,16 @@ void Player::initializePlayerCollumn(int Collumn)
 }
 
 void Player::setPlayerHP(int HP)
+{
+	playerHP = HP;
+}
+
+void Player::setPlayerLives(int Lives)
+{
+	playerLives = Lives;
+}
+
+void Player::changePlayerHP(int HP)
 {
 	playerHP = playerHP + HP;
 }
@@ -86,4 +101,33 @@ void Goal::setGoalRow(int Row)
 void Goal::setGoalCollumn(int Collumn)
 {
 	goalCollumn = Collumn;
+}
+int Enemy::getEnemyRow()
+{
+	return enemyRow;
+}
+
+int Enemy::getEnemyCollumn()
+{
+	return enemyCollumn;
+}
+
+void Enemy::setEnemyRow(int Row)
+{
+	enemyRow = Row;
+}
+
+void Enemy::setEnemyCollumn(int Collumn)
+{
+	enemyCollumn = Collumn;
+}
+
+void Enemy::changeEnemyRow(int Row)
+{
+	enemyRow = enemyRow+ Row;
+}
+
+void Enemy::changeEnemyCollumn(int Collumn)
+{
+	enemyCollumn = enemyCollumn+ Collumn;
 }

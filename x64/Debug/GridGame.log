@@ -1,4 +1,5 @@
 ﻿  Source.cpp
-E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(14,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
-E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(166,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(21,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(261,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\Source.cpp(334,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   GridGame.vcxproj -> E:\OneDrive\Desktop\School Projects\Programming assigment\Grid-Game\x64\Debug\GridGame.exe
