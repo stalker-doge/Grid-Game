@@ -27,6 +27,7 @@ void main()
 	int playerMenuChoice = 0;
 	string playerName;
 	int playerScore;
+	bool saveScore = false;
 	do
 	{
 		cout <<dye::light_yellow( "\nMenu\n\n");
@@ -195,6 +196,7 @@ void main()
 					playerScore = p1.getPlayerLives() * 100 + p1.getPlayerDifficulty() * 1000 + p1.getPlayerHP() * 50;
 					cout << "\n" << dye::light_aqua("Your Score is: ");
 					cout << dye::light_yellow(playerScore);
+					saveScore = true;
 				}
 
 				if (p1.getPlayerHP() == 0)
@@ -212,15 +214,17 @@ void main()
 				}
 				p1.setPlayerGoal(false);
 				CreateGrid();
-				playerScore = 0;
 			} while (playAgain != 0);
 		}
-		if (playerScore > 0)
+		if (saveScore=true)
 		{
 			cout << "What is your Name?\n";
 			cin >> playerName;
 			WriteHighScore(playerName, to_string(playerScore));
 		}
+		playerScore = 0;
+		saveScore = false;
+		playerDifficulty = 4;
 	}while (playerMenuChoice != 3);
 }
 
@@ -451,17 +455,18 @@ void ShowHighScores()
 	ifstream arrayInputFile;
 	string strLine;
 	arrayInputFile.open("HighScore.csv", ios::in);
-	while (!arrayInputFile.eof())
+	do 
 	{
-		arrayInputFile >> strLine;
-		cout << "\n" << strLine << "\n";
-	}
+		getline(arrayInputFile, strLine);
+		cout << "\n" << strLine;
+	} while (!arrayInputFile.eof());
+	cout << "\n";
 }
 
 void WriteHighScore(string playerName, string playerScore)
 {
 	ofstream arrayInputFile;
-	string strline = playerName + ", " + playerScore;
+	string strline = playerName + ", Score:" + playerScore;
 	arrayInputFile.open("HighScore.csv", ios::app);
 	arrayInputFile << strline << "\n";
 }
