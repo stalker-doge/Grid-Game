@@ -60,7 +60,7 @@ void main()
 			{
 				while (playerDifficulty > 3 || playerDifficulty < 0)
 				{
-					cout << "\nWhat difficulty do you want: 0 for Very Easy, 1 for Easy, 2 for Medium,3 for Hard\n"; //DIFFICULTY: VERY EASY CAN SEE BOARD, 200 HEALTH, EASY CAN SEE BOARD, 150 HP, MEDIUM NO BOARD, 100 HP, HARD NO BOARD, 50 HP
+					cout << "\nWhat difficulty do you want: 0 for Very Easy, 1 for Easy, 2 for Medium,3 for Hard\n"; //DIFFICULTY: VERY EASY CAN SEE BOARD, 200 HEALTH, EASY CAN SEE BOARD, 150 HP, MEDIUM HIDDEN BOARD, 100 HP, HARD HIDDEN BOARD, 50 HP
 					cin >> playerDifficulty;
 
 					switch (playerDifficulty)
@@ -306,7 +306,10 @@ void DetectEnemy()
 		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)) //Turns out you can bracket and write massive statements on new lines, neat
 	{
 		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-		hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "2";
+		if (p1.getPlayerDifficulty() >= 2)
+		{
+			hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "2";//so that it only shows if player is on higher difficulties and close by
+		}
 	}
 
 }
@@ -319,23 +322,11 @@ void DetectGoal()
 		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20))
 	{
 		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-		hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "G";
+		if (p1.getPlayerDifficulty() >= 2)
+		{
+			hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "G";//so that it only shows if player is on higher difficulties and close by
+		}
 	}
-	/*if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-	{
-		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "G";
-	}
-	if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-	{
-		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-		hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "G";
-	}
-	if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-	{
-		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "G";
-	}*/
 }
 
 void CreateGrid()
