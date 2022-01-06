@@ -16,6 +16,8 @@ void EnemyMove(int x, int y, int currentEnemy);
 void EnemyRandomMove();
 void WriteHighScore(string playerName,string playerScore);
 void ShowHighScores();
+void DetectEnemy();
+void DetectGoal();
 
 void main()
 {
@@ -27,6 +29,7 @@ void main()
 	int playerMenuChoice = 0;
 	string playerName;
 	int playerScore;
+	int playerHP;
 	bool saveScore = false;
 	do
 	{
@@ -66,6 +69,7 @@ void main()
 					{
 						p1.setPlayerDifficulty(0);
 						p1.setPlayerHP(200);
+						playerHP = 200;
 						p1.setPlayerLives(4);
 						break;
 					}
@@ -73,12 +77,14 @@ void main()
 					{
 						p1.setPlayerDifficulty(1);
 						p1.setPlayerHP(150);
+						playerHP = 150;
 						p1.setPlayerLives(3);
 						break;
 					}
 					case 2:
 					{	p1.setPlayerDifficulty(2);
 					p1.setPlayerHP(100);
+					playerHP = 100;
 					p1.setPlayerLives(2);
 					break;
 					}
@@ -86,6 +92,7 @@ void main()
 					{
 						p1.setPlayerDifficulty(3);
 						p1.setPlayerHP(50);
+						playerHP = 50;
 						p1.setPlayerLives(1);
 						break;
 					}
@@ -139,49 +146,11 @@ void main()
 					default:
 						cout << "\nInput not recognized, please try again\n";
 					}
-					if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-					{
-						cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-						hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "2";
-					}
-					if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "2" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-					{
-						cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-						hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "2";
-					}
-					if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-					{
-						cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-						hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "2";
-					}
-					if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-					{
-						cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
-						hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "2";
-					}
-					//Above finds if player is near enemy
-					if (gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-					{
-						cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-						hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "G";
-					}
-					if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "G" && p1.getPlayerCollumn() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-					{
-						cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-						hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "G";
-					}
-					if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
-					{
-						cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-						hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "G";
-					}
-					if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
-					{
-						cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
-						hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "G";
-					}
 					EnemyRandomMove();
-					//Finds if player is next to the goal
+					DetectEnemy();//Finds if player is near enemy
+
+					DetectGoal();//Finds if player is near goal
+
 					if (p1.getPlayerGoal() == true || p1.getPlayerHP() < 1)
 					{
 						playerChoice = 5;
@@ -213,6 +182,7 @@ void main()
 					playerDifficulty = 4;
 				}
 				p1.setPlayerGoal(false);
+				p1.setPlayerHP(playerHP);
 				CreateGrid();
 			} while (playAgain != 0);
 		}
@@ -304,19 +274,19 @@ void EnemyMove(int x, int y, int currentEnemy)
 {
 	if (enemy[currentEnemy].getEnemyRow() + x == -1 || enemy[currentEnemy].getEnemyCollumn() + y == -1 || enemy[currentEnemy].getEnemyRow() + x == 20 || enemy[currentEnemy].getEnemyCollumn() + y == 20)
 	{
-
+		//makes it so that enemies don't go outside the array
 	}
 	else if (gameBoard[enemy[currentEnemy].getEnemyRow() + x][enemy[currentEnemy].getEnemyCollumn() + y] == "1")
 	{
-
+		//checks to ensure that enemies don't go in the same tile as the player
 	}
 	else if (gameBoard[enemy[currentEnemy].getEnemyRow() + x][enemy[currentEnemy].getEnemyCollumn() + y] == "2")
 	{
-
+		//so enemies don't go inside eachother
 	}
 	else if (gameBoard[enemy[currentEnemy].getEnemyRow() + x][enemy[currentEnemy].getEnemyCollumn() + y] == "G")
 	{
-
+		//enemies don't go in the same place as the goal
 	}
 	else
 	{
@@ -326,6 +296,46 @@ void EnemyMove(int x, int y, int currentEnemy)
 		gameBoard[enemy[currentEnemy].getEnemyRow()][enemy[currentEnemy].getEnemyCollumn()] = "2";
 		hiddenBoard[enemy[currentEnemy].getEnemyRow()][enemy[currentEnemy].getEnemyCollumn()] = "#";
 	}
+}
+
+void DetectEnemy()
+{
+	if ((gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "2" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)) //Turns out you can bracket and write massive statements on new lines, neat
+	{
+		cout << dye::light_red("\nWARNING: YOU ARE 1 MOVE AWAY FROM AN ENEMY");
+		hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "2";
+	}
+
+}
+
+void DetectGoal()
+{
+	if ((gameBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+		|| (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20))
+	{
+		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
+		hiddenBoard[p1.getPlayerRow() + 1][p1.getPlayerCollumn()] = "G";
+	}
+	/*if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+	{
+		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
+		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + 1] = "G";
+	}
+	if (gameBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerRow() + 1 < 20)
+	{
+		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
+		hiddenBoard[p1.getPlayerRow() - 1][p1.getPlayerCollumn()] = "G";
+	}
+	if (gameBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] == "G" && p1.getPlayerRow() + 1 > -1 && p1.getPlayerCollumn() + 1 < 20)
+	{
+		cout << dye::light_yellow("\nYOU ARE 1 MOVE AWAY FROM THE GOAL");
+		hiddenBoard[p1.getPlayerRow()][p1.getPlayerCollumn() + -1] = "G";
+	}*/
 }
 
 void CreateGrid()
