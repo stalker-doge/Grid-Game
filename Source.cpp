@@ -31,6 +31,7 @@ void main()
 	int playerScore;
 	int playerHP;
 	bool saveScore = false;
+
 	do
 	{
 		cout <<dye::light_yellow( "\nMenu\n\n");
@@ -54,13 +55,15 @@ void main()
 			break;
 
 		}
+
 		if (playerMenuChoice != 3)
 		{
 			do
 			{
 				while (playerDifficulty > 3 || playerDifficulty < 0)
 				{
-					cout << "\nWhat difficulty do you want: 0 for Very Easy, 1 for Easy, 2 for Medium,3 for Hard\n"; //DIFFICULTY: VERY EASY CAN SEE BOARD, 200 HEALTH, EASY CAN SEE BOARD, 150 HP, MEDIUM HIDDEN BOARD, 100 HP, HARD HIDDEN BOARD, 50 HP
+					// DIFFICULTY: VERY EASY CAN SEE BOARD, 200 HEALTH, EASY CAN SEE BOARD, 150 HP, MEDIUM HIDDEN BOARD, 100 HP, HARD HIDDEN BOARD, 50 HP
+					cout << "\nWhat difficulty do you want: 0 for Very Easy, 1 for Easy, 2 for Medium,3 for Hard\n"; 
 					cin >> playerDifficulty;
 
 					switch (playerDifficulty)
